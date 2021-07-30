@@ -37,11 +37,13 @@ namespace template.Infrastructure.Persistence
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<OrderPosition> OrderBook { get; set; }
+
         public DbSet<TodoItem> TodoItems { get; set; }
 
         public DbSet<TodoList> TodoLists { get; set; }
 
-        public DbSet<OrderBook> OrderBook { get; set; }
+        
 
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

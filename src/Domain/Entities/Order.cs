@@ -12,6 +12,10 @@ namespace template.Domain.Entities
         public Customer Customer { get; set; }
 
         public int CustomerId { get; set; }
-        public List<Book> OrderedBooks { get; set; } = new List<Book>();
+
+        public DateTime Date { get; set; }
+
+        public IList<OrderPosition> OrderPosition { get; private set; } = new List<OrderPosition>(); 
+ 
     }
 }

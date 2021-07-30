@@ -50,51 +50,56 @@ namespace template.Infrastructure.Persistence
                     }
                 });
 
-                
-
 
                 await context.SaveChangesAsync();
             }
+
+            //List<Customer> customers = new List<Customer>();
+            //List<Book> books = new List<Book>();
+
             /*
-                        List<Customer> customers = new List<Customer>();
-                        List<Book> books = new List<Book>();
+            if (!context.Customers.Any())
+            {
+                customers.Add(new Customer { LastName = "Mueller", FirstName = "Lisa", City = "Essen", Postcode = 12345, Street = "Hausstr.", StreetNumber = "2" });
+                customers.Add(new Customer { LastName = "Meier", FirstName = "Stefan", City = "Bochum", Postcode = 54321, Street = "Astr.", StreetNumber = "3a" });
+                customers.Add(new Customer { LastName = "Heiler", FirstName = "Marcus", City = "Dortmund", Postcode = 54321, Street = "Bstr.", StreetNumber = "4" });
+                foreach (var c in customers)
+                {
+                    context.Customers.Add(c);
+                }
 
-                        if (!context.Customers.Any())
-                        {
-                            customers.Add( new Customer { LastName = "Mueller", FirstName = "Lisa", City = "Essen", Postcode = 12345, Street = "Hausstr.", StreetNumber = "2" });
-                            customers.Add( new Customer { LastName = "Meier", FirstName = "Stefan", City = "Bochum", Postcode = 54321, Street = "Astr.", StreetNumber = "3a" });
-                            customers.Add( new Customer { LastName = "Heiler", FirstName = "Marcus", City = "Dortmund", Postcode = 54321, Street = "Bstr.", StreetNumber = "4" });
-                            foreach (var c in customers)
-                            {
-                                context.Customers.Add(c);
-                            }
-
-                            await context.SaveChangesAsync();
-                        }
-
-
-
-                        if (!context.Books.Any())
-                        {
-                            books.Add(new Book { Isbn = "4321324324", Author = "Ingrid Bergmann", Jahr = 2020, Titel = "C++ für Besoffene" });
-                            books.Add(new Book { Isbn = "11111111111", Author = "Ulrich Denzel", Jahr = 2014, Titel = "Java ist auch eine Insel" });
-                            books.Add(new Book { Isbn = "22222222222", Author = "Heinrich Alfons", Jahr = 2010, Titel = "C für Anfänger" });
-                            books.Add(new Book { Isbn = "22222222222", Author = "Heinrich Alfons", Jahr = 2010, Titel = "C für Anfänger" });
-
-                            foreach (var b in books)
-                            {
-                                context.Add(b);
-                            }
-                        }
-
-                        if (!context.Orders.Any())
-                        {
-                            context.Orders.Add(new Order {Customer=customers[0], OrderedBooks=new List<Book> { books[0], books[2]} });
-                            context.Orders.Add(new Order { Customer = customers[2], OrderedBooks = new List<Book> { books[0], books[2], books[1] } });
-                            context.Orders.Add(new Order { Customer = new Customer { LastName = "Lauten", FirstName = "Heiner", City = "Hamburg", Postcode = 888888, Street = "Momsenstr.", StreetNumber = "12" }, OrderedBooks = new List<Book> { new Book { Author = "Albert Einstein", Isbn = "42543543", Jahr = 1992, Titel = "Kurze Geschichte der Physik" } } });
-                            await context.SaveChangesAsync();
-                        }
+                await context.SaveChangesAsync();
+            }
             */
+
+            /*
+            if (!context.Books.Any())
+            {
+                books.Add(new Book { Isbn = "4321324324", Author = "Ingrid Bergmann", Jahr = 2020, Titel = "C++ für Besoffene" });
+                books.Add(new Book { Isbn = "11111111111", Author = "Ulrich Denzel", Jahr = 2014, Titel = "Java ist auch eine Insel" });
+                books.Add(new Book { Isbn = "22222222222", Author = "Heinrich Alfons", Jahr = 2010, Titel = "C für Anfänger" });
+                books.Add(new Book { Isbn = "22222222222", Author = "Heinrich Alfons", Jahr = 2010, Titel = "C für Anfänger" });
+
+                foreach (var b in books)
+                {
+                    context.Add(b);
+                }
+                await context.SaveChangesAsync();
+            }*/
+            /*
+            if (!context.Orders.Any())
+            {
+                context.Orders.Add(new Order { Customer = customers[0], });
+                context.Orders.Add(new Order { Customer = customers[2],  });
+                context.Orders.Add(new Order { Customer = new Customer { LastName = "Lauten", FirstName = "Heiner", City = "Hamburg", Postcode = 888888, Street = "Momsenstr.", StreetNumber = "12" },  } });
+                await context.SaveChangesAsync();
+            }*/
+            /*
+            if (!context.OrderBook.Any())
+            {
+                context.OrderBook.Add(new OrderBook { });
+                await context.SaveChangesAsync();
+            }*/
         }
     }
 }

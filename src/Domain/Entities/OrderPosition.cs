@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace template.Domain.Entities
 {
-    public class OrderBook
+    public class OrderPosition
     {
         public int Id { get; set; }
 

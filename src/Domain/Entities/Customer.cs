@@ -17,6 +17,8 @@ namespace template.Domain.Entities
 
         public string City { get; set; }
 
+        public IList<Order> Orders { get; private set; } = new List<Order>();
+
 
     }
 }
