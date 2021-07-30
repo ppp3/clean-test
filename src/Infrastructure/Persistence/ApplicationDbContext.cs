@@ -37,7 +37,7 @@ namespace template.Infrastructure.Persistence
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<OrderPosition> OrderBook { get; set; }
+        public DbSet<OrderPosition> OrderPositions { get; set; }
 
         public DbSet<TodoItem> TodoItems { get; set; }
 

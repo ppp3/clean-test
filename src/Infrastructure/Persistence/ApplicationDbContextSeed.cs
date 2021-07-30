@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System;
 
 namespace template.Infrastructure.Persistence
 {
@@ -54,52 +55,109 @@ namespace template.Infrastructure.Persistence
                 await context.SaveChangesAsync();
             }
 
-            //List<Customer> customers = new List<Customer>();
-            //List<Book> books = new List<Book>();
+            IList<Customer> customers = new List<Customer>();
+            IList<Book> books = new List<Book>();
+            IList < OrderPosition> orderPositions = new List<OrderPosition>();
+            IList<Order> orders = new List<Order>();
 
-            /*
-            if (!context.Customers.Any())
-            {
-                customers.Add(new Customer { LastName = "Mueller", FirstName = "Lisa", City = "Essen", Postcode = 12345, Street = "Hausstr.", StreetNumber = "2" });
-                customers.Add(new Customer { LastName = "Meier", FirstName = "Stefan", City = "Bochum", Postcode = 54321, Street = "Astr.", StreetNumber = "3a" });
-                customers.Add(new Customer { LastName = "Heiler", FirstName = "Marcus", City = "Dortmund", Postcode = 54321, Street = "Bstr.", StreetNumber = "4" });
-                foreach (var c in customers)
-                {
-                    context.Customers.Add(c);
-                }
 
-                await context.SaveChangesAsync();
-            }
-            */
-
-            /*
             if (!context.Books.Any())
             {
                 books.Add(new Book { Isbn = "4321324324", Author = "Ingrid Bergmann", Jahr = 2020, Titel = "C++ für Besoffene" });
                 books.Add(new Book { Isbn = "11111111111", Author = "Ulrich Denzel", Jahr = 2014, Titel = "Java ist auch eine Insel" });
                 books.Add(new Book { Isbn = "22222222222", Author = "Heinrich Alfons", Jahr = 2010, Titel = "C für Anfänger" });
                 books.Add(new Book { Isbn = "22222222222", Author = "Heinrich Alfons", Jahr = 2010, Titel = "C für Anfänger" });
-
                 foreach (var b in books)
                 {
                     context.Add(b);
                 }
                 await context.SaveChangesAsync();
-            }*/
-            /*
+
+            }
+
+
+            customers.Add(new Customer { LastName = "Mueller", FirstName = "Lisa", City = "Essen", Postcode = 12345, Street = "Hausstr.", StreetNumber = "2" });
+            customers.Add(new Customer { LastName = "Meier", FirstName = "Stefan", City = "Bochum", Postcode = 54321, Street = "Astr.", StreetNumber = "3a" });
+            customers.Add(new Customer { LastName = "Heiler", FirstName = "Marcus", City = "Dortmund", Postcode = 54321, Street = "Bstr.", StreetNumber = "4" });
+            customers.Add(new Customer { LastName = "Bäll", FirstName = "Günter", City = "Hanau", Postcode = 34245, Street = "Cstr.", StreetNumber = "11" });
+
+
+            orders.Add(new Order { Customer = customers[0], Date = DateTime.Today }); //0
+            orders.Add(new Order { Customer = customers[0], Date = DateTime.Today.AddDays(-10) }); //1
+            
+            orders.Add(new Order { Customer = customers[1], Date = DateTime.Today.AddDays(-5) }); //2
+            orders.Add(new Order { Customer = customers[1], Date = DateTime.Today.AddDays(-3) }); //3
+            orders.Add(new Order { Customer = customers[1], Date = DateTime.Today.AddDays(-10) }); //4
+            
+            orders.Add(new Order { Customer = customers[2], Date = DateTime.Today.AddDays(-3) }); //5
+            
+            orders.Add(new Order { Customer = customers[3], Date = DateTime.Today.AddDays(-10) }); //6
+            orders.Add(new Order { Customer = customers[3], Date = DateTime.Today.AddDays(-5) }); //7
+
+
+            customers[0].Orders.Add(orders[0]);
+            customers[0].Orders.Add(orders[0]);
+
+            customers[1].Orders.Add(orders[2]);
+            customers[1].Orders.Add(orders[3]);
+            customers[1].Orders.Add(orders[4]);
+
+            customers[2].Orders.Add(orders[5]);
+
+            customers[3].Orders.Add(orders[6]);
+            customers[3].Orders.Add(orders[7]);
+
+            orderPositions.Add(new OrderPosition{Book=books[0], Order=orders[0] });
+            orderPositions.Add(new OrderPosition { Book = books[1], Order = orders[0] });
+
+            orderPositions.Add(new OrderPosition { Book = books[2], Order = orders[1] });
+            orderPositions.Add(new OrderPosition { Book = books[0], Order = orders[1] });
+            orderPositions.Add(new OrderPosition { Book = books[1], Order = orders[1] });
+
+            orderPositions.Add(new OrderPosition { Book = books[1], Order = orders[2] });
+            orderPositions.Add(new OrderPosition { Book = books[2], Order = orders[2] });
+            orderPositions.Add(new OrderPosition { Book = books[3], Order = orders[2] });
+
+            orderPositions.Add(new OrderPosition { Book = books[3], Order = orders[3] });
+
+            orderPositions.Add(new OrderPosition { Book = books[0], Order = orders[4] });
+
+            orderPositions.Add(new OrderPosition { Book = books[1], Order = orders[5] });
+
+            orderPositions.Add(new OrderPosition { Book = books[3], Order = orders[6] });
+            orderPositions.Add(new OrderPosition { Book = books[2], Order = orders[6] });
+
+            orderPositions.Add(new OrderPosition { Book = books[0], Order = orders[7] });
+
             if (!context.Orders.Any())
             {
-                context.Orders.Add(new Order { Customer = customers[0], });
-                context.Orders.Add(new Order { Customer = customers[2],  });
-                context.Orders.Add(new Order { Customer = new Customer { LastName = "Lauten", FirstName = "Heiner", City = "Hamburg", Postcode = 888888, Street = "Momsenstr.", StreetNumber = "12" },  } });
+                foreach (var o in orders)
+                {
+                    context.Add(o);
+                }
+
                 await context.SaveChangesAsync();
-            }*/
-            /*
-            if (!context.OrderBook.Any())
+            }
+
+            if (!context.OrderPositions.Any())
             {
-                context.OrderBook.Add(new OrderBook { });
+                foreach (var o in orderPositions)
+                {
+                    context.Add(o);
+                }
+
                 await context.SaveChangesAsync();
-            }*/
+            }
+
+            if (!context.Customers.Any())
+            {
+                foreach (var c in customers)
+                {
+                    context.Add(c);
+                }
+                await context.SaveChangesAsync();
+            }
+
         }
     }
 }
