@@ -273,15 +273,10 @@ namespace template.Infrastructure.Persistence.Migrations
                     b.Property<int>("Jahr")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Titel")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Books");
                 });
@@ -326,6 +321,9 @@ namespace template.Infrastructure.Persistence.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
@@ -333,7 +331,7 @@ namespace template.Infrastructure.Persistence.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("template.Domain.Entities.OrderBook", b =>
+            modelBuilder.Entity("template.Domain.Entities.OrderPosition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -352,7 +350,7 @@ namespace template.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderBook");
+                    b.ToTable("OrderPositions");
                 });
 
             modelBuilder.Entity("template.Domain.Entities.TodoItem", b =>
@@ -546,17 +544,10 @@ namespace template.Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("template.Domain.Entities.Book", b =>
-                {
-                    b.HasOne("template.Domain.Entities.Order", null)
-                        .WithMany("OrderedBooks")
-                        .HasForeignKey("OrderId");
-                });
-
             modelBuilder.Entity("template.Domain.Entities.Order", b =>
                 {
                     b.HasOne("template.Domain.Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -564,7 +555,7 @@ namespace template.Infrastructure.Persistence.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("template.Domain.Entities.OrderBook", b =>
+            modelBuilder.Entity("template.Domain.Entities.OrderPosition", b =>
                 {
                     b.HasOne("template.Domain.Entities.Book", "Book")
                         .WithMany()
@@ -573,7 +564,7 @@ namespace template.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("template.Domain.Entities.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderPosition")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -617,9 +608,14 @@ namespace template.Infrastructure.Persistence.Migrations
                     b.Navigation("Colour");
                 });
 
+            modelBuilder.Entity("template.Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("template.Domain.Entities.Order", b =>
                 {
-                    b.Navigation("OrderedBooks");
+                    b.Navigation("OrderPosition");
                 });
 
             modelBuilder.Entity("template.Domain.Entities.TodoList", b =>
